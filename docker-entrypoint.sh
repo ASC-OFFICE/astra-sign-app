@@ -26,11 +26,7 @@ fi
 
 pushd keys &> /dev/null
 	echo -e "\033[1mImporting keys\033[0m"
-	gpg --import --batch --pinentry-mode=loopback --passphrase-file=$PASSWORD_FILE $SECRET_KEY_FILE
-	key_fingerprint=$( \
-		gpg -n --import --import-options import-show --with-colons $PUBLIC_KEY_FILE | \
-		grep -E "^fpr" | \
-		cut -d: -f10)
+	gpg --import --batch --pinentry-mode=loopback --passphrase-file="$PASSWORD_FILE" "$SECRET_KEY_FILE"
 popd &> /dev/null
 
 pushd buildroot &> /dev/null
@@ -43,8 +39,7 @@ pushd buildroot &> /dev/null
 	bsign --sign --nosymlinks --nopass --pgoptions="\
 			--batch \
 			--pinentry-mode=loopback \
-			--passphrase-file=../keys/$PASSWORD_FILE \
-			--default-key=$key_fingerprint" \
+			--passphrase-file=\"../keys/$PASSWORD_FILE\"" \
 		$elf_files
 
 	echo -e "\033[1mVerification\033[0m"
