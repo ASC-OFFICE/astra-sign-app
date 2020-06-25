@@ -1,3 +1,7 @@
+FROM scratch AS astralinux-ce
+
+ADD astralinux-ce-2.12.xz /
+
 FROM astralinux-ce
 
 ENV DEBIAN_FRONTEND=noninteractive \
