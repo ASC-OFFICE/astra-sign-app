@@ -32,7 +32,7 @@ popd &> /dev/null
 pushd buildroot &> /dev/null
 	echo -e "\033[1mSearching\033[0m"
 	elf_files=$(find . -type f -exec file --mime-type {} \; | \
-		grep -E "application/(x-executable|x-sharedlib)" | \
+		grep -E "application/(x-executable|x-pie-executable|x-sharedlib)" | \
 		cut -d: -f1)
 
 	echo -e "\033[1mSigning\033[0m"
